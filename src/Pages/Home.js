@@ -1,4 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import '../css/home.css';
+import {
+    Link
+} from 'react-router-dom';
 
 export const Home = (props) => {
 
@@ -17,7 +21,7 @@ export const Home = (props) => {
     }, []);
 
     return (
-        <div>
+        <div className="items_container">
             {
                 items.map(item => <Item key={item.link} item={item}/>)
             }
@@ -33,16 +37,22 @@ const Item = (props) => {
     } = props;
 
     return (
-        <div>
+        <Link
+            to={{
+                pathname: '/series/' + item.title,
+                state: {
+                    item: item
+                }
+            }} 
+            className='item'
+        >
             <div>
+                <img className='item_cover' src={item.enclosure.url} width={200}/>
+            </div>
+            <div className='item_title'>
                 {item.title}
             </div>
-            <div>
-                <a href={item.link}>
-                    <img src={item.enclosure.url} width={200} ></img>
-                </a>
-            </div>
-        </div>
+        </Link>
     )
 
 }
